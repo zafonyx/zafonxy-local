@@ -1,0 +1,35 @@
+name: docs
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  disclosure-gate:
+    name: Disclosure and consistency gate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Self-test the rules
+        run: make self-test
+
+      - name: Check every document
+        run: make check
+
+      - name: Explain a failure
+        if: failure()
+        run: |
+          echo "This repository publishes security claims. A failure here means either"
+          echo "a document left the disclosure model in docs/README.md, or two documents"
+          echo "now disagree. Fix the document, not the rule. If a rule is genuinely wrong,"
+          echo "change it in the same commit and say why."

@@ -1,0 +1,45 @@
+# Licence
+
+**Documentation in this repository:** Creative Commons Attribution-NoDerivatives 4.0
+International (CC BY-ND 4.0)
+**SPDX identifier:** `CC-BY-ND-4.0`
+
+Canonical legal text: <https://creativecommons.org/licenses/by-nd/4.0/legalcode.en>
+Human-readable summary (not a substitute for the legal text):
+<https://creativecommons.org/licenses/by-nd/4.0/>
+
+## What this means in practice
+
+You may:
+
+- read, download, and store these documents;
+- share them, in whole or in part, in any medium or format, including inside your own security
+  review, procurement, or training material;
+- quote them with attribution.
+
+You must:
+
+- credit Zafonyx Local as the source and link to this repository;
+- indicate if you changed the material — though under NoDerivatives a modified copy may not be
+  distributed;
+- not apply legal terms or technological measures that restrict others from doing anything the
+  licence permits.
+
+You may not:
+
+- distribute a modified, abridged, translated, or excerpted-in-isolation version of these
+  documents as if it were ours.
+
+## Scope
+
+This licence covers the **documentation** in this repository.
+
+It does not cover the Zafonyx Local application, its binaries, its source, its branding, or its
+trade marks, all of which remain proprietary and are not licensed here. Nothing in this file
+grants a licence to any patent, trade mark, or trade secret.
+
+## Third-party material
+
+Names of standards bodies, cryptographic algorithms, and third-party platforms are used for
+identification only and remain the property of their owners. Where a document quotes a
+standard, the standard's own terms apply to that standard.
