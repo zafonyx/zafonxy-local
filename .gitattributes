@@ -1,0 +1,4 @@
+# This repository is documentation. One tooling script would otherwise make
+# GitHub report it as a Python project, because Markdown is excluded from the
+# language bar by default. Mark it so the sidebar reflects what this is.
+* linguist-documentation
