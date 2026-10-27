@@ -1,0 +1,28 @@
+#!/bin/sh
+# Reject an automated co-author trailer before the commit exists.
+#
+# The tooling that writes commits appends a co-author credit for an automated
+# agent. On a public repository whose whole premise is that every claim is
+# attributable to a named party, that credit is wrong, and it is invisible in
+# `git log --oneline`, so it survives review. Rejecting here keeps it out of
+# the history instead of requiring a rewrite afterwards.
+#
+# Git passes the path to the proposed message as the first argument.
+
+message_file="$1"
+
+if grep -qi '^co-authored-by:.*cursoragent' "$message_file"; then
+	cat >&2 <<'EOF'
+error: the commit message credits an automated agent as a co-author:
+
+    Co-authored-by: Cursor <cursoragent@cursor.com>
+
+That account would be listed as a contributor to this repository. Remove the
+trailer and commit again. If it is being appended automatically, the message
+must be written without going through the tool that adds it, for example by
+committing through `git commit-tree` with a prepared message file.
+EOF
+	exit 1
+fi
+
+exit 0

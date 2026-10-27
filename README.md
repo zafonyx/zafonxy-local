@@ -117,6 +117,7 @@ Makefile               single entry point for the documentation check
 docs/                  the document set, starting at docs/README.md
 docs/milestones/       one document per milestone, m0 through m7
 tools/docs_check.py    disclosure and consistency gate
+tools/hooks/           commit-msg hook rejecting an automated co-author trailer
 .github/workflows/     runs the gate on every push and pull request
 ```
 
@@ -125,6 +126,16 @@ model — or two documents that disagree — fail the build rather than being ca
 also scans the commit history and rejects a co-author trailer from the tooling that writes
 commits, so an agent is never credited as a contributor to this repository. Locally, `make check`
 runs the same thing. `make self-test` proves the rules still fire.
+
+The same trailer is rejected before a commit exists by the `commit-msg` hook. Enable it once per
+clone:
+
+```bash
+git config core.hooksPath tools/hooks
+```
+
+A message that carries the trailer is refused outright, so it cannot reach the history and need
+not be rewritten afterwards.
 
 ## Reporting a vulnerability
 
