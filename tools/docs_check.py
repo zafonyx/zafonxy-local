@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import argparse
 import re
+import subprocess
 import sys
 import tempfile
 from pathlib import Path
@@ -114,6 +115,17 @@ def documents(root: Path = REPO) -> list[Path]:
 # Documents whose absence means the gate is misconfigured rather than satisfied.
 REQUIRED = ("README.md", "SECURITY.md", "docs/README.md", "docs/cryptography.md")
 MIN_DOCUMENTS = 15
+
+# Tooling that injects a co-author credit into commit messages. It makes an agent
+# appear as a contributor to a repository whose whole premise is that every claim
+# is attributable to a named party, so the published history must not carry it.
+FORBIDDEN_COAUTHOR = re.compile(
+    r"^co-authored-by:.*cursoragent.*$", re.IGNORECASE | re.MULTILINE
+)
+
+# 0x1e separates commits, 0x1f separates hash from message; neither can appear
+# in a commit message, so the parse cannot be confused by message content.
+LOG_FORMAT = "%x1e%H%x1f%B"
 
 
 def show(path: Path) -> str:
@@ -245,6 +257,41 @@ def check_milestones(texts: dict[Path, str]) -> list[str]:
     return problems
 
 
+def coauthor_problems(log_text: str) -> list[str]:
+    """Report forbidden co-author trailers in a git log dump.
+
+    Pure function over the text so the self-test can exercise it without a repo.
+    """
+    problems: list[str] = []
+    for record in log_text.split("\x1e"):
+        if not record.strip():
+            continue
+        sha, _, message = record.partition("\x1f")
+        for match in FORBIDDEN_COAUTHOR.finditer(message):
+            problems.append(
+                f"commit {sha.strip()[:7]}: forbidden co-author trailer "
+                f"{match.group(0).strip()!r} — rewrite the message to remove it"
+            )
+    return problems
+
+
+def check_history(root: Path = REPO) -> list[str]:
+    if not (root / ".git").exists():
+        return []  # not a checkout, so there is no published history to judge
+    try:
+        result = subprocess.run(
+            ["git", "-C", str(root), "log", f"--format={LOG_FORMAT}"],
+            capture_output=True,
+            text=True,
+            timeout=60,
+        )
+    except (OSError, subprocess.SubprocessError) as error:
+        return [f"git history could not be read: {error}"]
+    if result.returncode != 0:
+        return [f"git history could not be read: {result.stderr.strip()}"]
+    return coauthor_problems(result.stdout)
+
+
 def run(root: Path = REPO) -> list[str]:
     docs = documents(root)
     problems: list[str] = []
@@ -267,6 +314,7 @@ def run(root: Path = REPO) -> list[str]:
         problems += check_status(path, text)
     problems += check_claims(texts)
     problems += check_milestones(texts)
+    problems += check_history(root)
     return problems
 
 
@@ -334,9 +382,26 @@ def self_test() -> int:
         print("self-test FAILED: a shrunken document set was reported as clean")
         return 1
 
+    # The co-author trailer arrives from the tooling that writes the commit, not
+    # from the message text a person types, so it can only be caught after the
+    # fact. A history scan must flag it, and must stay quiet about clean history.
+    dirty_log = (
+        "\x1e" + "a" * 40 + "\x1fPublish docs\n\nCo-authored-by: Cursor "
+        "<cursoragent@cursor.com>\n"
+    )
+    clean_log = "\x1e" + "b" * 40 + "\x1fPublish docs\n\nCo-authored-by: A Person "
+    "<person@example.org>\n"
+
+    if not coauthor_problems(dirty_log):
+        print("self-test FAILED: a cursoragent trailer was not rejected")
+        return 1
+    if coauthor_problems(clean_log):
+        print("self-test FAILED: a legitimate co-author was rejected")
+        return 1
+
     print(
         f"self-test passed: {len(failures)} findings on the sample, none on clean text, "
-        "empty repository fails closed"
+        "empty repository fails closed, history trailer rejected"
     )
     return 0
 

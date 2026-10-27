@@ -121,8 +121,10 @@ tools/docs_check.py    disclosure and consistency gate
 ```
 
 The gate runs in CI on every push and pull request, so a document that leaves the disclosure
-model — or two documents that disagree — fail the build rather than being caught by review.
-Locally, `make check` runs the same thing. `make self-test` proves the rules still fire.
+model — or two documents that disagree — fail the build rather than being caught by review. It
+also scans the commit history and rejects a co-author trailer from the tooling that writes
+commits, so an agent is never credited as a contributor to this repository. Locally, `make check`
+runs the same thing. `make self-test` proves the rules still fire.
 
 ## Reporting a vulnerability
 

@@ -153,8 +153,8 @@ Claims carry identifiers so a reviewer can cite them, and so this repository can
 **`ASR-10`** Every identifier is defined exactly once and every reference to one resolves. The
 check is automated and runs in CI on every push and pull request: it fails on a dangling or
 duplicated identifier, a broken link or anchor, an inconsistent release table, a document that
-leaves the disclosure model, or a shrunken document set that would otherwise make the check pass
-vacuously.
+leaves the disclosure model, a shrunken document set that would otherwise make the check pass
+vacuously, or a commit that credits an automated tool as a co-author.
 
 ---
 
