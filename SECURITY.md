@@ -86,7 +86,7 @@ private channel.
 
 ## What to expect
 
-Targets, not contractual commitments:
+Targets, not contractual commitments. Ratified 2026-10-28; reviewed annually.
 
 | Stage | Target |
 |-------|--------|
