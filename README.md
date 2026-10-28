@@ -1,7 +1,7 @@
 # Zafonyx Local — Public Security Documentation
 
-Zafonyx Local is a local-first password manager and secret store for Windows, macOS, iOS, and
-Android. This repository is its public security documentation: what the product protects, how it
+[Zafonyx Local](https://www.zafonxy.com) is a local-first password manager and secret store for
+Windows, macOS, iOS, and Android. This repository is its public security documentation: what the product protects, how it
 is designed to protect it, and what it does not claim.
 
 | | |
