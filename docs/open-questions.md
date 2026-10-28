@@ -15,8 +15,8 @@ Decisions that are still open in the published design, and the limits of the shi
 | # | Question | Why it matters | Current leaning |
 |---|----------|----------------|-----------------|
 | Q1 | Does a passkey live in its own store, or attached to an account entry? | A schema decision is expensive to reverse and affects backup and merge. | A separate passkey store, a passkey list in the backup payload, and an optional non-secret link to an account entry. Attaching passkeys to account entries conflicts with the one-record-type-per-store invariant. |
-| Q2 | Which platforms are in scope for the first passkey release? | The operating-system integration work differs greatly per platform. | Windows and macOS first; mobile next; Linux only through an optional local bridge. |
-| Q3 | Is a hardware-backed key backend in scope for Linux? | Without one, the "hardware-sealed key" claim covers Windows, macOS, iOS, and Android only. | Undecided. Until then the Linux build relies on OS secure storage and says so. |
+| Q2 | Which platforms are in scope for the first passkey release? | The operating-system integration work differs greatly per platform. | Windows and macOS first; mobile next; Linux only through an optional local bridge, and only once the platform ships. |
+| Q3 | Is a hardware-backed key backend in scope for Linux? | Without one, the "hardware-sealed key" claim covers Windows, macOS, iOS, and Android only. | Undecided. Until then a Linux build would rely on OS secure storage and would say so. |
 | Q4 | How does a user recover a forgotten PIN on a machine with no OS gesture and no hardware-sealed PIN copy? | Those users currently have no reset path. | A peer-assisted recovery path is an option; the alternative is to state plainly that recovery is unavailable. |
 | Q5 | Do account records need a stable identifier? | Cards, authenticator items, crypto records, and passkeys already have their own identifiers. Accounts are still addressed by category and title. | Deferred until a feature needs cross-record links or finer conflict handling. |
 | Q6 | Is the local bridge and browser extension ever built for passkeys? | It adds a loopback service and per-browser maintenance. | Only as a fallback if the platform authenticator cannot cover a supported browser or OS. |
@@ -27,7 +27,7 @@ Decisions that are still open in the published design, and the limits of the shi
 
 | Limitation | What it means in practice |
 |------------|---------------------------|
-| No hardware-sealed key on Linux or web | The vault key is protected by OS secure storage only. A copied app-data folder is not unusable to the same user there, unlike the hardware-backed platforms. |
+| No hardware-sealed key on Linux (planned) | Linux is not supported yet. When it ships, the vault key will be protected by OS secure storage only, so a copied app-data folder will not be unusable to the same user there, unlike the hardware-backed platforms. |
 | PIN-only wrap can be attacked offline | Used only on devices with no security hardware. A short PIN is weak under offline attack; the setup screen says so. |
 | A live, already-compromised process is out of scope | Hardware wrapping protects offline copies and resting memory. It does not defeat code injection or hooking during a cryptographic operation. |
 | Backup passphrase entropy is the user's responsibility | Only a minimum length is enforced. A weak passphrase weakens the container regardless of the KDF. |

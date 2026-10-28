@@ -2,7 +2,7 @@
 
 **Product:** Zafonyx Local
 **Current release line:** 2.3.0
-**Platforms:** Windows, macOS, Linux, iOS, Android, web
+**Platforms:** Windows, macOS, iOS, Android (Linux planned; web not supported)
 **Model:** Local-first. The vault and its key stay on the device; no server holds either.
 
 Related: [cryptography](../cryptography.md) for the key hierarchy in full,
@@ -155,7 +155,7 @@ The protection column describes the current release. Where a threat was only par
 
 | Milestone | User-visible outcome | Architectural outcome |
 |-----------|----------------------|-----------------------|
-| M0 | A local password manager on six platforms | Category/entry model, per-secret encryption, lock screen |
+| M0 | A local password manager on four platforms | Category/entry model, per-secret encryption, lock screen |
 | M1 | Authenticator codes inside the app; safer copy and input | Separate authenticator store; byte-level secret handling |
 | M2 | Unlock with a device gesture; key sealed in a security chip | Key-custody layer; wrap record; protected session |
 | M3 | Faster, transactional vault; explicit reset instead of corruption | Relational store; verified migration from the old format |

@@ -104,7 +104,7 @@ would otherwise assume otherwise.
 |------|-------|--------------|
 | A live compromised process can interfere during a cryptographic operation | Every platform | Hardware wrapping hardens offline copies and resting memory, not a runtime being watched from inside |
 | Tier E (PIN-only) resists offline attack only by KDF cost | Devices with no security hardware | The setup screen says so and recommends an OS gesture |
-| No chip-backed tier on Linux or web | Linux, web | Known gap; the hardware-sealed claim is scoped accordingly |
+| No chip-backed tier on Linux (planned) | Linux | Known gap for the planned platform; the hardware-sealed claim is scoped accordingly |
 | Backup passphrase entropy is the user's responsibility | File backups | Only a minimum length is enforced; there is no strength meter |
 | Lost backup passphrase is unrecoverable | File backups | By design: no escrow, no server, no back door |
 | A same-network host can occupy a pairing window | LAN transfer | Availability nuisance; no confidentiality impact |

@@ -22,7 +22,7 @@ exported. It encrypts (wraps) the vault key so the vault key need not rest in re
 produced it. Useless without the wrapping key.
 
 **Hardware-sealed** — Wrapped by a key that cannot leave a security chip, released only after user
-presence. Applies to Windows, macOS, iOS, and Android only — not to Linux or web.
+presence. Applies to Windows, macOS, iOS, and Android only. Linux is planned; web is not supported.
 [Cryptography §3](cryptography.md#3-key-custody-tiers)
 
 **Sealed** — Authenticated-encrypted under a key only the intended party can derive. Used for

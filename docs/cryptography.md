@@ -122,21 +122,21 @@ a security chip but cannot complete the operation is treated as not having one.
 | D | OS keystore, no chip | OS gesture | Cannot unwrap silently; weaker if the whole user profile is copied |
 | E | Memory-hard wrap from the application PIN | Application PIN | Can be attacked offline; used only when nothing above is available |
 
-**Coverage today**
+**Platform coverage**
 
 | Platform | Best available tier |
 |----------|---------------------|
 | Windows | Chip-backed where present (A/B/C), OS keystore otherwise (D), PIN wrap as the floor (E) |
 | macOS, iOS | Chip-backed, released after a device-credential prompt (A/B) |
 | Android | Hardware-backed storage where present (A/B/C), PIN wrap on emulators and devices without it (E) |
-| Linux, web | OS keystore (D) with PIN wrap as the floor (E); a chip-backed tier is planned for Linux |
+| Linux (planned) | OS keystore (D) with PIN wrap as the floor (E); a chip-backed tier is planned |
 
 **`CRY-13`** On every platform where tier A, B, or C is in use, a process running as the logged-in
 user cannot obtain the vault key from disk without the user approving a release.
 
 **`CRY-14`** The "hardware-sealed" claim applies to Windows, macOS, iOS, and Android only. On
-Linux and web the vault key is protected by OS secure storage, and a copied app-data folder is
-not useless to the same user there. This limit is repeated wherever the claim appears.
+Linux, once it ships, the vault key is protected by OS secure storage, and a copied app-data
+folder is not useless to the same user there. This limit is repeated wherever the claim appears.
 
 Full tier behaviour, session lifetime, and PIN handling: [M2](milestones/m2-hardware-root-of-trust.md).
 

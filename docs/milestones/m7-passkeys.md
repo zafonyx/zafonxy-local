@@ -72,7 +72,7 @@ Key rules:
 |----------|----------|
 | Windows | Register with the OS passkey provider so system and browser prompts can route to the app |
 | macOS | Provide the system credential-provider integration |
-| Linux | No uniform OS passkey provider today; scope open |
+| Linux (planned) | No uniform OS passkey provider today; not in scope for 2.6.0 |
 | iOS / Android | Scope decision pending — see [open-questions.md](../open-questions.md) |
 
 **Standards work:** WebAuthn Level 2 or later, COSE key encoding, CBOR, and ES256/EdDSA signature suites, using maintained libraries rather than hand-written primitives.
@@ -157,7 +157,7 @@ Rejected: an extension-only product, a plaintext private key, signing without us
 | Risk | Mitigation |
 |------|------------|
 | OS authenticator APIs differ and may require privileged registration or signing | Prototype the Windows and macOS paths early; keep the app-facing interface narrow |
-| Linux has no uniform platform-authenticator API | Treat Linux as the daemon candidate, or scope 2.6.0 to Windows and macOS first |
+| Linux has no uniform platform-authenticator API | Keep 2.6.0 to Windows and macOS; revisit Linux when the platform ships |
 | Attestation and relying-party validation are easy to get wrong | Prefer platform APIs; test with real services |
 | Passkeys are high-value and hard to back up | Include them in the sealed backup and transfer from day one |
 | Separate store vs embedded record | Decide before schema work; the rest of the architecture favours a separate store |

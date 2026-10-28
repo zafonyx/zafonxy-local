@@ -12,7 +12,7 @@
 
 ## 1. Goal
 
-Ship a usable password manager on Windows, macOS, Linux, iOS, Android, and web where the vault is local, secrets are encrypted at rest, and the paid unlock is a one-time store purchase rather than a subscription or an account.
+Ship a usable password manager on Windows, macOS, iOS, and Android where the vault is local, secrets are encrypted at rest, and the paid unlock is a one-time store purchase rather than a subscription or an account.
 
 M0 is the baseline that later security milestones harden. Several of its shortcuts are the reason M1–M4 exist.
 
@@ -22,7 +22,7 @@ M0 is the baseline that later security milestones harden. Several of its shortcu
 
 The product needed a working shell before it could justify a security architecture:
 
-- Six platforms with different window, tray, packaging, and store rules.
+- Four platforms with different window, tray, packaging, and store rules.
 - A vault usable without an account, with optional social sign-in.
 - A paid unlock that works offline and survives reinstall without a licence server.
 - A data model simple enough to ship: categories of login entries.
@@ -131,7 +131,7 @@ Every later milestone removes a concrete M0 weakness rather than adding a featur
 - [x] A user can create categories and entries, edit them, and move them between categories.
 - [x] Passwords are ciphertext at rest and decrypt only on reveal.
 - [x] The app locks on demand and after the configured inactivity period.
-- [x] The vault behaves identically on all six target platforms with the same data model.
+- [x] The vault behaves identically on all four shipped platforms with the same data model.
 - [x] A store purchase unlocks the paid surfaces and can be restored.
 - [x] No account is required for guest use.
 - [x] All user-visible strings exist in the supported languages.

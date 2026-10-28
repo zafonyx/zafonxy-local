@@ -42,7 +42,7 @@ The store also needs its own key, derived for this purpose alone, so the databas
 - A build that cannot confirm the encryption layer is active refuses to open the store rather than
   writing an unencrypted vault.
 - The database key is **not** the vault key. It is derived from the vault key for this purpose alone, so one derived key does not expose the other.
-- The derivation happens inside the platform key layer wherever a security chip is available, so the vault key does not enter the application runtime for this purpose. On Linux and web it happens in process.
+- The derivation happens inside the platform key layer wherever a security chip is available, so the vault key does not enter the application runtime for this purpose. On Linux, once it ships, it happens in process.
 
 ### 3.2 Data model
 
@@ -137,7 +137,7 @@ Rejected: keeping the old documents as a read fallback after migration (two sour
 | Duplicate titles in the old format inside one category | Newest wins; the collision is surfaced rather than silently resolved |
 | The encryption layer is missing or replaced in a build | The store refuses to open rather than writing plaintext |
 | A database key change would orphan the vault | The key derives from the vault key, so it changes only when the vault key changes |
-| Linux and web derive the database key in process | Accepted; same output, vault key briefly in memory |
+| Linux (planned) derives the database key in process | Accepted for the planned platform; same output, vault key briefly in memory |
 | Future schema evolution | Versioned store; upgrades must be additive and transactional |
 
 ---

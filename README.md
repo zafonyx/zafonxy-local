@@ -1,8 +1,8 @@
 # Zafonyx Local — Public Security Documentation
 
-Zafonyx Local is a local-first password manager and secret store for Windows, macOS, Linux,
-iOS, Android, and web. This repository is its public security documentation: what the product
-protects, how it is designed to protect it, and what it does not claim.
+Zafonyx Local is a local-first password manager and secret store for Windows, macOS, iOS, and
+Android. This repository is its public security documentation: what the product protects, how it
+is designed to protect it, and what it does not claim.
 
 | | |
 |---|---|
@@ -35,7 +35,8 @@ questionnaire, and [SECURITY.md](SECURITY.md) if you are reporting a vulnerabili
 
 - **Local-first.** The vault and its key stay on the device. There is no server that holds
   either, no cloud sync, and no account required to use the vault.
-- **Six platforms** from one shared user interface: Windows, macOS, Linux, iOS, Android, web.
+- **Four platforms** from one shared user interface: Windows, macOS, iOS, and Android. Linux is
+  planned; web is not supported and is not planned for the near term.
 - **One-time purchase** through the platform stores. There is no subscription and no licence
   server.
 - **Shipped** through 2.3.0: hardware-wrapped vault key released only after user presence,

@@ -36,7 +36,7 @@ guessing.** A wrong answer on a vendor form is worse than a gap.
 
 | Question | Answer |
 |----------|--------|
-| What platforms? | Windows, macOS, Linux, iOS, Android, web, from one shared interface |
+| What platforms? | Windows, macOS, iOS, and Android, from one shared interface. Linux is planned; web is not supported |
 | Is there an agent, a browser extension, or a background service? | No. The app is the client; there is no server component and no required extension |
 | How is it deployed in an enterprise? | Per-device installation through the platform's normal app distribution. There is no MDM-specific build; standard platform management applies |
 | Does it require an account? | No. Guest use is a first-class path — `DAT-07` |

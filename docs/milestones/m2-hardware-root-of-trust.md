@@ -3,7 +3,7 @@
 | | |
 |---|---|
 | **Release** | 2.2.7 |
-| **Status** | Shipped on Windows, macOS, iOS, and Android; Linux and web remain on OS secure storage |
+| **Status** | Shipped on Windows, macOS, iOS, and Android; Linux is planned, and web is not supported |
 | **Depends on** | M0, M1 |
 | **Unlocks** | M4 (database key derivation), M7 (platform presence) |
 | **Theme** | The vault key is unusable to a same-user process without user presence |
@@ -63,14 +63,14 @@ Rather than one implementation per platform, the product targets a capability ti
 | D | OS keystore, no chip | OS gesture | Cannot unwrap silently; weaker if the whole user profile is copied |
 | E | Memory-hard wrap from the application PIN | Application PIN | Can be attacked offline; used only when nothing above is available |
 
-**Supported today**
+**Platform coverage**
 
 | Platform | Custody available |
 |----------|-------------------|
 | Windows | Device security chip where present, with or without an OS gesture; OS keystore otherwise; application-PIN wrap as the floor |
 | macOS, iOS | Device security chip, released after a device-credential prompt |
 | Android | Hardware-backed key storage where present; application-PIN wrap on emulators and devices without it |
-| Linux, web | OS keystore, with application-PIN wrap as the floor. A chip-backed tier is planned for Linux |
+| Linux (planned) | OS keystore, with application-PIN wrap as the floor. A chip-backed tier is planned |
 
 Capability detection happens at runtime and is never taken from a flag the user sets. A device that reports a chip but cannot complete the operation is treated as not having one.
 
@@ -91,7 +91,7 @@ The record never contains the unwrapped vault key and never contains the PIN in 
 - **New process, new prompt.** A fresh process always requires presence.
 - **No silent downgrade.** Cancelling the prompt leaves the vault locked. The app does not fall back to a weaker tier on the same attempt.
 
-Once released, the key does not rest in the application runtime as a long-lived plaintext buffer. On Windows, macOS, iOS, and Android it is held inside a protected native session and used per operation; a crash dump does not contain a readable vault key. On Linux and web it is held in process memory until a native backend exists.
+Once released, the key does not rest in the application runtime as a long-lived plaintext buffer. On Windows, macOS, iOS, and Android it is held inside a protected native session and used per operation; a crash dump does not contain a readable vault key. On Linux, once it ships, it is held in process memory until a native backend exists.
 
 ### 3.5 PIN rules
 
@@ -175,7 +175,7 @@ These are the guarantees M2 is expected to provide, stated so they can be checke
 |------------|--------|
 | A live process that is already compromised could interfere during an operation | **Accepted and out of scope.** Hardware wrapping hardens offline copies and resting memory; it does not defeat code injection |
 | The PIN-only tier can be attacked offline | Accepted where no security hardware exists; the setup screen says so and recommends an OS gesture |
-| No chip-backed tier on Linux or web | Known gap; the claim "hardware-sealed" is documented as applying to Windows, macOS, iOS, and Android only |
+| No chip-backed tier on Linux (planned) | Known gap for the planned platform; the claim "hardware-sealed" is documented as applying to Windows, macOS, iOS, and Android only |
 | Presence removed after enrollment (gesture or chip unavailable) | The app falls back to what the device supports now and says so |
 | Forgotten PIN with no OS gesture and no sealed copy | Not recoverable; the app states this instead of offering an unreachable recovery path |
 | A compromised operating system | Out of scope; no application-level control survives it |
